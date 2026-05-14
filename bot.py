@@ -1,7 +1,5 @@
 import logging
-import threading
 import os
-from flask import Flask
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, CallbackQueryHandler
 from news_scraper import scraper
@@ -11,18 +9,6 @@ from config import Config
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# ── Flask app for gunicorn (Render web service health check) ──
-app = Flask(__name__)
-
-@app.route('/')
-def health():
-    return '🤖 Trading News Bot is running!', 200
-
-@app.route('/health')
-def health_check():
-    return {'status': 'ok'}, 200
-
-# ── Telegram Bot ──────────────────────────────────────────────
 class TradingNewsBot:
     def __init__(self):
         self.config = Config()
@@ -87,23 +73,15 @@ class TradingNewsBot:
             logger.error(f"Channel post failed: {e}")
 
 
-def run_bot():
-    """Run the Telegram bot in a background thread."""
-    import asyncio
+def main():
     bot = TradingNewsBot()
     telegram_app = Application.builder().token(bot.config.TELEGRAM_TOKEN).build()
     telegram_app.add_handler(CommandHandler("start", bot.start))
     telegram_app.add_handler(CommandHandler("latest", bot.latest))
     telegram_app.add_handler(CallbackQueryHandler(bot.button_callback))
     telegram_app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, bot.handle_message))
-    logger.info("🤖 Telegram bot started!")
+    logger.info("🤖 Bot started!")
     telegram_app.run_polling()
 
-
-# Start bot in background thread when gunicorn loads this module
-bot_thread = threading.Thread(target=run_bot, daemon=True)
-bot_thread.start()
-
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    main()

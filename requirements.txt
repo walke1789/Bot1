@@ -1,0 +1,42 @@
+# ── Core Telegram Bot ────────────────────────────────
+python-telegram-bot==20.7
+httpx==0.25.2                  # Used internally by python-telegram-bot
+
+# ── News Scraping ────────────────────────────────────
+feedparser==6.0.10
+requests==2.31.1
+aiohttp==3.9.1                 # ✨ Added: async HTTP for parallel feed fetching
+beautifulsoup4==4.12.2         # ✨ Added: HTML cleaning in news descriptions
+lxml==4.9.3                    # ✨ Added: faster XML/HTML parser for feedparser & bs4
+
+# ── Environment & Config ─────────────────────────────
+python-dotenv==1.0.0
+
+# ── Browser Automation (forums_bot) ──────────────────
+selenium==4.15.2
+webdriver-manager==4.0.1       # ✨ Added: auto-manages ChromeDriver versions
+
+# ── Scheduling ───────────────────────────────────────
+schedule==1.4.2
+APScheduler==3.10.4            # ✨ Added: advanced scheduler with async support
+
+# ── Web Server ───────────────────────────────────────
+flask==2.3.3
+gunicorn==21.2.0
+
+# ── Database ─────────────────────────────────────────
+# sqlite3 is built into Python — no install needed
+
+# ── Async Utilities ──────────────────────────────────
+asyncio==3.4.3                 # ✨ Added: explicit async support
+nest-asyncio==1.5.8            # ✨ Added: allows asyncio.run() inside running loops (Heroku/Render)
+
+# ── Logging & Monitoring ─────────────────────────────
+colorlog==6.8.0                # ✨ Added: colored console log output
+
+# ── Security ─────────────────────────────────────────
+cryptography==41.0.7           # ✨ Added: secure token/data handling
+
+# ── Price Alerts (price_alerts.py) ───────────────────
+# CoinGecko, open.er-api, Yahoo Finance → all free, no API key needed
+yfinance==0.2.36               # ✨ Added: Yahoo Finance fallback for stock prices

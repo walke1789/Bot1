@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN', '8924733120:AAHiWNV8eflhQ4fSQQd7sCoykHs5dsJkQPY')
+    TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN', '8924733120:AAHDlQ_rFHbHL1JUYMpoN7WCfs_iIhh_KdY')
     CHANNEL_ID = os.getenv('CHANNEL_ID', '@cryptoctocknews')
     ADMIN_ID = int(os.getenv('ADMIN_ID', 1369974797))
     

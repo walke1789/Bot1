@@ -1,16 +1,4 @@
 python-telegram-bot==20.7
-feedparser==6.0.10
+feedparser
 requests
-aiohttp
-beautifulsoup4
-lxml
 python-dotenv
-selenium
-webdriver-manager
-schedule
-flask
-gunicorn
-nest-asyncio
-colorlog
-yfinance
-httpx

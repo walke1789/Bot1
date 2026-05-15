@@ -1,8 +1,9 @@
-cat > main.py << 'EOF'
+cat > ~/Bot1/main.py << 'EOF'
 import logging
 import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes, CallbackQueryHandler
+from telegram.request import HTTPXRequest
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -38,7 +39,14 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 if __name__ == '__main__':
     logger.info("🤖 Starting bot...")
-    app = ApplicationBuilder().token(TOKEN).build()
+    request = HTTPXRequest(proxy="socks5://proxy.server:3128")
+    app = (
+        ApplicationBuilder()
+        .token(TOKEN)
+        .get_updates_request(HTTPXRequest(proxy="http://proxy.pythonanywhere.com:3128"))
+        .request(HTTPXRequest(proxy="http://proxy.pythonanywhere.com:3128"))
+        .build()
+    )
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("latest", latest))
     app.add_handler(CallbackQueryHandler(button_callback))
